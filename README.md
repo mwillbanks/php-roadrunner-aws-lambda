@@ -32,7 +32,7 @@ docker run --rm -p 9000:8080 \
   -v /tmp/aws-lambda-rie:/aws-lambda-rie \
   --entrypoint /aws-lambda-rie \
   roadrunner-aws-lambda:latest \
-  /var/runtime/bootstrap
+  /var/task/bootstrap
 ```
 
 ## Execute API Gateway Payload
@@ -79,4 +79,26 @@ curl -s \
   "cookies": []
 }
 JSON
+```
+
+### Result
+
+#### Server Log
+```
+04 Dec 2025 14:21:06,156 [INFO] (rapid) exec '/var/task/bootstrap' (cwd=/var/task, handler=)
+04 Dec 2025 14:21:10,109 [INFO] (rapid) INIT START(type: on-demand, phase: init)
+04 Dec 2025 14:21:10,109 [INFO] (rapid) The extension's directory "/opt/extensions" does not exist, assuming no extensions to be loaded.
+04 Dec 2025 14:21:10,109 [INFO] (rapid) Starting runtime without AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN , Expected?: false
+START RequestId: f594573d-e525-4dbb-8245-e7d683ebffd0 Version: $LATEST
+04 Dec 2025 14:21:10,153 [INFO] (rapid) INIT RTDONE(status: success)
+04 Dec 2025 14:21:10,153 [INFO] (rapid) INIT REPORT(durationMs: 44.651000)
+04 Dec 2025 14:21:10,153 [INFO] (rapid) INVOKE START(requestId: ebdcab85-2c32-4169-a270-f037ff5443ae)
+04 Dec 2025 14:21:10,158 [INFO] (rapid) INVOKE RTDONE(status: success, produced bytes: 0, duration: 4.951000ms)
+END RequestId: ebdcab85-2c32-4169-a270-f037ff5443ae
+REPORT RequestId: ebdcab85-2c32-4169-a270-f037ff5443ae  Init Duration: 0.08 ms  Duration: 49.74 ms      Billed Duration: 50 ms  Memory Size: 3008 MB    Max Memory Used: 3008 MB
+```
+
+#### Request Response
+```
+{"statusCode":500,"headers":null,"multiValueHeaders":null,"body":"","cookies":null}
 ```
